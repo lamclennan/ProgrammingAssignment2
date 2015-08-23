@@ -3,9 +3,11 @@
 
 ## makeCacheMatrix takes one matrix input and returns a list of functions
 ## essentially creating a special matrix that can cache its inverse
+## this creates a function closure so i and x will be in a maintained environment
 makeCacheMatrix <- function(x = matrix()) {
-    ##set  i to null
+    ## set  i to null (create i)
     i <- NULL
+    ## x is already created as it is an input
     
     ##create function set taking y as an input
     set <- function(y) {
@@ -25,7 +27,7 @@ makeCacheMatrix <- function(x = matrix()) {
     ## create function getinverse that returns i
     getinverse <- function() i
     
-    ## return a named list of our fuctions
+    ## return a named list of our functions
     list(set = set, get = get,
          setinverse = setinverse,
          getinverse = getinverse)
@@ -46,10 +48,10 @@ cacheSolve <- function(x, ...) {
         return(i)
     }
     
-    ## set data to the 
+    ## set data to the result of the get function 
     data <- x$get()
     
-    ##run solve on  data and assing output to i 
+    ## run solve on data and assing output to i 
     i <- solve(data, ...)
     
     ## update the cache with the solved inverse
